@@ -10244,13 +10244,15 @@ def vouchers_purchase(request):
             t_id = request.session['t_id']
         else:
             return redirect('/')
-        vou=Voucher.objects.filter(status=0)
-        vou1=Voucher.objects.filter(company_id=t_id)
         
-        Stock1=stock_item.objects.all()
         tally = Companies.objects.filter(id=t_id)
+        stock_allo=stock_item_allocation.objects.all()
+        gd=CreateGodown.objects.all()
         led=tally_ledger.objects.filter(status=0)
         led1=tally_ledger.objects.filter(company_id=t_id)
+        vou=Voucher.objects.filter(status=0)
+        vou1=Voucher.objects.filter(company_id=t_id)
+        data=stock_itemcreation.objects.all()
         purchase=voucher_purchase.objects.last()
        
        
@@ -10263,8 +10265,9 @@ def vouchers_purchase(request):
         'vou1':vou1,
         'tally':tally,
         'purchase':purchase,
-    
-        'Stock1':Stock1,
+        'gd':gd,
+        'data':data,
+        'stock_allo':stock_allo,
          })
 
 def add_purchase(request):
@@ -10287,7 +10290,11 @@ def add_purchase(request):
             quantity=request.POST['Quantity']
             rate=request.POST['Rate']
             amount=request.POST['amount']
-            narra=request.POST['total_amount']
+            narra=request.POST['narra']
+            total_amount=request.POST['total_amount']
+            tally_ledger.objects.filter(name=partyaccname).update(opening_blnc=curbal)
+            tally_ledger.objects.filter(name=pur_led).update(opening_blnc=curbal1 )
+            stock_itemcreation.objects.all()
             purch=voucher_purchase(vou_type1=vtype,
                     pur_no=pur_no,
                     invoiceno=invoice,
@@ -10300,7 +10307,8 @@ def add_purchase(request):
                     quantity=quantity,
                     rate=rate,
                     amount=amount,
-                    total_amount=narra,
+                    narration=narra,
+                    total_amount=total_amount
                     )          
             purch.save()
             print("added")
@@ -10317,7 +10325,7 @@ def vouchers_sales(request):
         vou=Voucher.objects.filter(status=0)
         vou1=Voucher.objects.filter(company_id=t_id)
         
-        Stock1=stock_item.objects.all()
+        data=stock_itemcreation.objects.all()
         tally = Companies.objects.filter(id=t_id)
         led=tally_ledger.objects.filter(status=0)
         led1=tally_ledger.objects.filter(company_id=t_id)
@@ -10333,6 +10341,42 @@ def vouchers_sales(request):
        'sales':sales,
         'tally':tally,
         
-        'Stock1':Stock1,
+        'data':data,
 
         })
+
+def stock_allocat(request):
+    if 't_id' in request.session:
+        if request.session.has_key('t_id'):
+            t_id = request.session['t_id']
+        else:
+            return redirect('/')
+        sta=stock_item_allocation.objects.all()
+        gd=CreateGodown.objects.all()
+        return render(request,'stock_item_allocation.html',
+        {
+        
+        "sta":sta,
+        'gd':gd,
+
+        })
+
+
+def add_stock_allocat(request):
+        if request.method=='POST':
+            godow=request.POST['godown_item']
+            quantity=request.POST['Quantity']
+            rate=request.POST['Rate']
+            amount=request.POST['amount']
+            total=request.POST['total_amount']
+            godo=stock_item_allocation(
+                    godown=godow,
+                    quantity=quantity,
+                    rate=rate,
+                    amount=amount,
+                    total_amount=total,
+                            )          
+            godo.save()
+            
+        return render(request,'stock_item_allocation.html')
+   

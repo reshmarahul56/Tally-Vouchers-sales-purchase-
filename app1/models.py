@@ -1,3 +1,5 @@
+from email.policy import default
+from pickle import TRUE
 from django.db import models
 from re import T
 
@@ -1684,6 +1686,7 @@ class voucher_purchase(models.Model):
     quantity=models.IntegerField() 
     rate=models.IntegerField()
     amount=models.IntegerField()
+    narration=models.CharField(max_length=225,default=True)
     total_amount=models.IntegerField()
 
 
@@ -1705,10 +1708,10 @@ class receipt_details(models.Model):
     motor_veh_no=models.IntegerField()
 
 class stock_item_allocation(models.Model):
-    godown=models.ForeignKey(CreateGodown,on_delete=models.CASCADE,null=True)
+    godown=models.CharField(max_length=225,default=True)
     quantity=models.IntegerField()
     rate=models.IntegerField()
     amount=models.IntegerField()
-    total=models.IntegerField()
+    total_amount=models.IntegerField()
 
 

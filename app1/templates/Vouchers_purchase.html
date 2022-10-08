@@ -26,6 +26,17 @@
             width: 300px;
             height: 550px;
     }
+
+    .form-popup1 {
+    display: none;
+            position: absolute;
+            top: 22%;
+            right: 30%;
+            border: 1px solid #f1f1f1;
+            z-index: 9;
+            width: 500px;
+            height: 550px;
+    }
   
     .content a:hover { background-color: rgb(238, 167, 75);}
     
@@ -37,6 +48,14 @@
     }
     .form-container1 {
       max-width: 350px;
+            height: 600px;
+            padding: 2px; 
+     
+    }
+
+
+    .form-container5 {
+      width: 450px;
             height: 600px;
             padding: 2px; 
      
@@ -108,6 +127,16 @@
       document.getElementById("myForm4").style.display = "block";
   }
 
+  function showgrp4(){
+      document.getElementById('myForm5').style.visibility= "visible";
+      document.getElementById("myForm5").style.display = "block";
+  }
+
+  function showgrp5(){
+      document.getElementById('myForm6').style.visibility= "visible";
+      document.getElementById("myForm6").style.display = "block";
+  }
+
   function setData(gr){
         document.getElementById('under').value= gr;
         document.getElementById('rndlmt20').style.display = "none";
@@ -134,15 +163,24 @@
         document.getElementById('myForm4').style.visibility= "hidden";
         }
         
-        function setGroup(under,underId){
+        function setGroup(under,underId,id){
             document.getElementById('under').value= under;
             document.getElementById('myForm1').style.visibility= "hidden";
             document.getElementsByName('underhidden').value= underId;
+            document.getElementById('under').value=under;
+           document.getElementById('currentbalance').hidden=false
+           document.getElementById('currentbalance').value=id
+           document.getElementById('cr').hidden=false
+            
         }
-        function setGroup1(under,underId){
+        function setGroup1(under,underId,id){
             document.getElementById('under1').value= under;
             document.getElementById('myForm2').style.visibility= "hidden";
             document.getElementsByName('underhidden').value= underId;
+            document.getElementById('under1').value=under;
+           document.getElementById('currentbalance1').hidden=false
+           document.getElementById('currentbalance1').value=id
+           document.getElementById('cr').hidden=false
         }
 
         function setGroup2(under,underId){
@@ -156,6 +194,9 @@
             document.getElementById('myForm4').style.visibility= "hidden";
             document.getElementsByName('underhidden').value= underId;
         }
+
+
+
         function closeForm() {
         document.getElementById("myForm1").style.display = "none";
         }
@@ -169,6 +210,10 @@
 
         function closeForm3() {
         document.getElementById("myForm4").style.display = "none";
+        }
+
+        function closeForm4() {
+        document.getElementById("myForm5").style.display = "none";
         }
 </script>
 <form action="{% url 'vouchers_purchase' %} " method="POST" class="post-form">
@@ -188,10 +233,10 @@
                 <h5>Supplier Invoice number:</h5><input type="number" name="invoiceno"></b> <b> &nbsp;  Date:<input type="date" name="date"></h2></b> <br>  
                             </td>
                             </td><br>
-                          <h5>Party A/c Name:</h5><input type="text" name='partya/c' class="form-control" id="under" onclick="showgrp();"></b>
+                          <h5>Party A/c Name:</h5><input type="text" name='partya/c' class="form-control" id="under" onclick="showgrp(); "></b>
                  
                           <div class="col-sm-12 m-1 p-0"> <label >Current Balance :</label>
-                            <input type="text" id="currentbalance" style="width:100px" name="currentbalance"  value="{{i.opening_blnc}}" readonly hidden>
+                            <input type="text" id="currentbalance" style="width:100px;color: black;" name="currentbalance"  value="{{i.opening_blnc}}" readonly hidden>
 
                             <input type="text" name="cr" id="cr" style="width:50px" value="Dr"   readonly >
                            </div>
@@ -234,80 +279,17 @@
                           <td><input type="number" name='amount' id="amount3" placeholder='0.00' class="form-control" /></td>
                           
                         </tr>
-                        <script>
-                        var text1 = document.getElementById("amount1");
-                        var text2 = document.getElementById("amount2");
-                        function add_number() {
-                          var first_number = parseFloat(text1.value);
-                          if (isNaN(first_number)) first_number = 0;
-                           var second_number = parseFloat(text2.value);
-                          if (isNaN(second_number)) second_number = 0;
-                          var result1 = first_number * second_number;
-                          document.getElementById("amount3").value = result1;
-                        }
-                        </script>
-                        <tr>
-                          
-                          <td>
-                          </h5><input type="text" name='particulars' class="form-control" id="under1" onclick="showgrp2();"></b>
-                          </td>
-                          <td><input type="number" name='quantity' id="amount4"  oninput="add_numbernew()" placeholder='0.00' class="form-control" /></td>
-                          <td><input type="number" name='rate' id="amount5"  oninput="add_numbernew()" placeholder='0.00' class="form-control" /></td>
-                          
-                          <td><input type="number" name='amount' id="amount6"  oninput="add" placeholder='0.00' class="form-control" /></td>
-                          
-                        </tr>
+                        
                           </tbody></table>
-                           <script>
-                              var text1 = document.getElementById("amount1");
-                              var text2 = document.getElementById("amount2");
-                              var text4 = document.getElementById("amount4");
-                              var text5 = document.getElementById("amount5");
-                              function add_numbernew() {
-                              var first_number = parseFloat(text4.value);
-                              if (isNaN(first_number)) first_number = 0;
-                              var second_number = parseFloat(text5.value);
-                              if (isNaN(second_number)) second_number = 0;
-                              var result = first_number * second_number;
-                              document.getElementById("amount6").value = result;
-                              var first_number1 = parseFloat(text1.value);
-                              if (isNaN(first_number1)) first_number1 = 0;
-                              var second_number2 = parseFloat(text2.value);
-                              if (isNaN(second_number2)) second_number2 = 0;
-                              var result1 = first_number1 * second_number2;
-                              document.getElementById("amount3").value = result1;
-                              var result3=result1+result
-                              document.getElementById("amount9").value = result3;
-
-                               
-                              }
-//                           </script>
-                         
-                          <div class="row clearfix" style="margin-top:20px">
-                            <div class="col-md-7"></div>
-                            
-                          </div>
-                          <script>
-                          var text9 = document.getElementById("amount3");
-                          var text8 = document.getElementById("amount6");
-                          function add() {
-                            var first_number = parseFloat(text9.value);
-                            
-                             var second_number = parseFloat(text8.value);
-                            
-                            var result2 = first_number + second_number;
-                            document.getElementById("amount9").value = result2;
-                          }
-                         
-                        </script>
+                                               
                           <div class="row mt-4">
                             <div class="col-md-9">
                               
-                            NARRATION: 
+                              <h5>Narration:</h5><input type="text" name='narra' class="form-control" id="narra" >
                             </div>
                             
                             <div class="col-md-3">
-                            <input type="text" class="form-control" name="total_amount" id="amount9"  oninput="add" name="narration" style="text-align:right; width:50%"></div><br><br><br><br>
+                            <input type="number" class="form-control" name="total_amount" id="amount9"  oninput="add"  style="text-align:right; width:50%"></div><br><br><br><br>
                               
                               <!--<div class="col-md-2">
                                
@@ -356,6 +338,14 @@
                     <a class="btns_prnt" onclick="setGroup('{{i.name}}','{{i.id}}','{{i.opening_blnc}}')"  class="content" 
                     style="cursor:pointer;color:white">&nbsp;&nbsp;{{i.name}} </a><br>
                     {% endif %}
+                    {% if i.under == "Sundry_Debtors" %}
+                    <a class="btns_prnt" onclick="setGroup('{{i.name}}','{{i.id}}','{{i.opening_blnc}}')"  class="content" 
+                    style="cursor:pointer;color:white">&nbsp;&nbsp;{{i.name}} </a><br>
+                    {% endif %}
+                    {% if i.under == "Sundry_Creditors" %}
+                    <a class="btns_prnt" onclick="setGroup('{{i.name}}','{{i.id}}','{{i.opening_blnc}}')"  class="content" 
+                    style="cursor:pointer;color:white">&nbsp;&nbsp;{{i.name}} </a><br>
+                    {% endif %}
                     {% endfor %}
 
                     {% for i in led1 %}
@@ -367,6 +357,14 @@
                     {% if i.under == "Bank_Accounts" %}
                     <a class="btns_prnt" onclick="setGroup('{{i.name}}','{{i.id}}','{{i.opening_blnc}}')"  class="content" 
                     style="cursor:pointer;color:white">&nbsp;&nbsp;{{i.name}}</a><br>
+                    {% endif %}
+                    {% if i.under == "Sundry_Debtors" %}
+                    <a class="btns_prnt" onclick="setGroup('{{i.name}}','{{i.id}}','{{i.opening_blnc}}')"  class="content" 
+                    style="cursor:pointer;color:white">&nbsp;&nbsp;{{i.name}} </a><br>
+                    {% endif %}
+                    {% if i.under == "Sundry_Creditors" %}
+                    <a class="btns_prnt" onclick="setGroup('{{i.name}}','{{i.id}}','{{i.opening_blnc}}')"  class="content" 
+                    style="cursor:pointer;color:white">&nbsp;&nbsp;{{i.name}} </a><br>
                     {% endif %}
                     {% endfor %}
                     </tr>
@@ -402,7 +400,8 @@
                  
               
                   {% if i.under == "Purchase_Account" %}
-                    <a class="btns_prnt" onclick="setGroup1('{{i.name}}','{{i.opening_blnc}}')"  class="content" 
+                  
+                    <a class="btns_prnt" onclick="setGroup1('{{i.name}}','{{i.id}}','{{i.opening_blnc}}')"  class="content" 
                     style="cursor:pointer;color:white">&nbsp;&nbsp;{{i.name}}</a><br>
                     {% endif %}
                    
@@ -412,7 +411,7 @@
                  
               
                   {% if i.under == "Purchase_Account" %}
-                    <a class="btns_prnt" onclick="setGroup1('{{i.name}}','{{i.opening_blnc}}')"  class="content" 
+                    <a class="btns_prnt" onclick="setGroup1('{{i.name}}','{{i.id}}','{{i.opening_blnc}}')"  class="content" 
                     style="cursor:pointer;color:white">&nbsp;&nbsp;{{i.name}}</a><br>
                     {% endif %}
                    
@@ -442,7 +441,16 @@
             
                   {% for i in vou %}
                  
-                  {% if i.voucher_name == "Purchase" %}
+                  {% if i.voucher_type == "Purchase" %}
+                  <a class="btns_prnt" onclick="setGroup2('{{i.voucher_name}}','{{i.id}}')"  class="content" 
+                  style="cursor:pointer;color:white">&nbsp;&nbsp;{{i.voucher_name}}</a><br>
+                  {% endif %}
+                  
+                  {% endfor %}
+
+                  {% for i in vou1 %}
+                 
+                  {% if i.voucher_type == "Purchase" %}
                   <a class="btns_prnt" onclick="setGroup2('{{i.voucher_name}}','{{i.id}}')"  class="content" 
                   style="cursor:pointer;color:white">&nbsp;&nbsp;{{i.voucher_name}}</a><br>
                   {% endif %}
@@ -457,6 +465,111 @@
             
             
             
-            <div class="col-sm-3  m-0 p-0"></div>      
+            <div class="col-sm-3  m-0 p-0"></div>   
+            
+            
+
+            <div class="form-popup ScrollStyle" id="myForm4" style="background-color:  #213b52; color:white;" >
+              <form action="" class="form-container1" >
+            
+                <h6 style="background-color:rgb(17, 169, 240) ;color:white">List of Stock items</h6>
+                  <button type="button" class="btn cancel close" onclick="closeForm3()">X</button>
+                  <a  href="" style="margin-left:180px; cursor:pointer; color: white" >Create New</a>  
+            
+              <hr >
+              <div >
+                  <table >
+                  <tr >
+            
+                  {% for i in data %}
+                 
         
+                  <a  class="btns_prnt" onclick="setGroup3('{{i.name}}','{{i.id}}'); showgrp4();"  class="content " 
+                  style="cursor:pointer;color:white">&nbsp;&nbsp;{{i.name}}</a><br>
+                  
+                  {% endfor %}
+
+                  
+                  </tr>
+                  </table>
+              </div>
+              <input type="text" name="underhidden" hidden value="{{i.id}}">
+              </form>
+            </div>
+            
+            
+            
+            <div class="col-sm-3  m-0 p-0"></div>   
+
+
+
+
+            <div class="form-popup1 ScrollStyle" id="myForm5" style="background-color:  #213b52; color:white;" >
+              
+              <form action="" class="form-container5" >
+            
+                <h6 style="background-color:white ;color:black">Item allocations for: {{data.name}}</h6>
+                  <button type="button" class="btn cancel close" onclick="closeForm4()">X</button>
+                  
+            
+              <hr >
+              <div >
+                <table class="table table-bordered table-hover" id="tab_logic">
+                  <thead>
+                    <tr>
+                      
+                      <th class="text-center">Godown</th>
+                      
+                      <th class="text-center">Quantity</th>
+
+                      <th class="text-center">Rate per</th>
+                       
+                      <th class="text-center">Amount</th>
+
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      
+                      
+                        
+                        <td>
+                          <input type="text" name='godown_item' class="form-control" id="under3" onclick="showgrp5();"></b>
+                        </td>
+                      
+                      <td><input type="number" name='Quantity' id="amount1"   oninput="add_number()" placeholder='0.00' class="form-control" ></td>
+                      <td><input type="number" name='Rate' id="amount2"  oninput="add_number()" placeholder='0.00' class="form-control"></td>
+                      
+                      <td><input type="number" name='amount' id="amount3" placeholder='0.00' class="form-control" /></td>
+                      
+                    </tr>
+                    
+                      </tbody></table>
+                                           
+                      <div class="row mt-4">
+                        
+                        
+                        <div class="col-md-3">
+                        <input type="number" class="form-control" name="total_amount" id="amount9"  oninput="add"  style="text-align:right; width:50%"></div><br><br><br><br>
+                          
+                          <!--<div class="col-md-2">
+                           
+                        </div>-->
+                      </div>
+                      <!--<div class="row mt-3">
+                        <div class="col-md-12">
+                          <div class="notices">
+                            <div class="form-control">--><input class="btn btn-outline-info w-30 rounded-pill text-light" style="text-align: left;" type="button" onclick="newFunction()" value="Delete"><button type="submit" style="float: right;" class="btn btn-outline-info w-45 rounded-pill text-light">
+                              Save
+                            </button><!--</div>--><br>
+            </div>
+              <input type="text" name="underhidden" hidden value="{{i.id}}">
+              </form>
+            </div>
+            
+            
+            
+            <div class="col-sm-3  m-0 p-0"></div>
+
+         
 {% endblock %}
