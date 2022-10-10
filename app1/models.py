@@ -1674,15 +1674,15 @@ class voucher_sales(models.Model):
     
 class voucher_purchase(models.Model):
     
-    vou_type1=models.CharField(max_length=225,default=True)
+    vou_type1=models.CharField(max_length=225,default=False)
     pur_no=models.AutoField(primary_key=True,default=True)
     invoiceno=models.IntegerField() 
-    date=models.DateField(default=True)  
-    party_AC_name=models.ForeignKey(tally_ledger,on_delete=models.CASCADE,null=True)
+    date=models.DateField(null=True)  
+    party_AC_name=models.CharField(max_length=225,default=True)
     Cur_bal=models.IntegerField(default=True)
     purchaseledger=models.CharField(max_length=225)
     Cur_bal1=models.IntegerField(default=True)
-    itemname=models.ForeignKey(stock_item,on_delete=models.CASCADE,null=True)
+    itemname=models.CharField(max_length=225,default=True)
     quantity=models.IntegerField() 
     rate=models.IntegerField()
     amount=models.IntegerField()

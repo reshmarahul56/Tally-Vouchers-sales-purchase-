@@ -10253,7 +10253,7 @@ def vouchers_purchase(request):
         vou=Voucher.objects.filter(status=0)
         vou1=Voucher.objects.filter(company_id=t_id)
         data=stock_itemcreation.objects.all()
-        purchase=voucher_purchase.objects.last()
+        purchase=voucher_purchase.objects.all()
        
        
         
@@ -10292,9 +10292,7 @@ def add_purchase(request):
             amount=request.POST['amount']
             narra=request.POST['narra']
             total_amount=request.POST['total_amount']
-            tally_ledger.objects.filter(name=partyaccname).update(opening_blnc=curbal)
-            tally_ledger.objects.filter(name=pur_led).update(opening_blnc=curbal1 )
-            stock_itemcreation.objects.all()
+            
             purch=voucher_purchase(vou_type1=vtype,
                     pur_no=pur_no,
                     invoiceno=invoice,
@@ -10378,5 +10376,5 @@ def add_stock_allocat(request):
                             )          
             godo.save()
             
-        return render(request,'stock_item_allocation.html')
+        return render(request,'Vouchers_sales.html')
    

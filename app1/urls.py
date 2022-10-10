@@ -670,5 +670,5 @@ urlpatterns = [
     path('vouchers_sales',views.vouchers_sales,name='vouchers_sales'), 
     path('add_purchase',views.add_purchase,name='add_purchase'), 
     path('stock_allocat',views.stock_allocat,name='stock_allocat'),
-    path('add_stock_allocat',views.add_stock_allocat,name='add_stock_allocat'),   
+    path('add_stock_allocat',views.add_stock_allocat,name='add_stock_allocat'), 
      ]
