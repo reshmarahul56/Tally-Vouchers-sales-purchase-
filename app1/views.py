@@ -10246,7 +10246,7 @@ def vouchers_purchase(request):
             return redirect('/')
         
         tally = Companies.objects.filter(id=t_id)
-        stock_allo=stock_item_allocation.objects.all()
+        stock_allo=stock_item_allocat.objects.all()
         gd=CreateGodown.objects.all()
         led=tally_ledger.objects.filter(status=0)
         led1=tally_ledger.objects.filter(company_id=t_id)
@@ -10349,7 +10349,7 @@ def stock_allocat(request):
             t_id = request.session['t_id']
         else:
             return redirect('/')
-        sta=stock_item_allocation.objects.all()
+        sta=stock_item_allocat.objects.all()
         gd=CreateGodown.objects.all()
         return render(request,'stock_item_allocation.html',
         {
@@ -10367,7 +10367,7 @@ def add_stock_allocat(request):
             rate=request.POST['Rate']
             amount=request.POST['amount']
             total=request.POST['total_amount']
-            godo=stock_item_allocation(
+            godo=stock_item_allocat(
                     godown=godow,
                     quantity=quantity,
                     rate=rate,
@@ -10376,5 +10376,5 @@ def add_stock_allocat(request):
                             )          
             godo.save()
             
-        return render(request,'Vouchers_sales.html')
+        return render(request,'Vouchers_purchase.html')
    

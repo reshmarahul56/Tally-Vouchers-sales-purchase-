@@ -1707,8 +1707,8 @@ class receipt_details(models.Model):
     date=models.DateField()
     motor_veh_no=models.IntegerField()
 
-class stock_item_allocation(models.Model):
-    godown=models.CharField(max_length=225,default=True)
+class stock_item_allocat(models.Model):
+    godown=models.CharField(max_length=225,default=False)
     quantity=models.IntegerField()
     rate=models.IntegerField()
     amount=models.IntegerField()
