@@ -10287,9 +10287,13 @@ def add_purchase(request):
             pur_led=request.POST['pur_led']
             curbal1=request.POST['currentbalance1']
             item_name=request.POST['stock_item']
-            quantity=request.POST['Quantity']
-            rate=request.POST['Rate']
-            amount=request.POST['amount']
+            quantity=request.POST['quantity']
+            rate=request.POST['rate']
+            amount=request.POST['value']
+            item_name1=request.POST['stock_item1']
+            quantity1=request.POST['quantity2']
+            rate1=request.POST['rate2']
+            amount1=request.POST['value2']
             narra=request.POST['narra']
             total_amount=request.POST['total_amount']
             
@@ -10305,6 +10309,10 @@ def add_purchase(request):
                     quantity=quantity,
                     rate=rate,
                     amount=amount,
+                    itemname1=item_name1,
+                    quantity1=quantity1,
+                    rate1=rate1,
+                    amount1=amount1,
                     narration=narra,
                     total_amount=total_amount
                     )          
@@ -10320,61 +10328,83 @@ def vouchers_sales(request):
             t_id = request.session['t_id']
         else:
             return redirect('/')
-        vou=Voucher.objects.filter(status=0)
-        vou1=Voucher.objects.filter(company_id=t_id)
         
-        data=stock_itemcreation.objects.all()
         tally = Companies.objects.filter(id=t_id)
+        stock_allo=stock_item_allocat.objects.all()
+        gd=CreateGodown.objects.all()
         led=tally_ledger.objects.filter(status=0)
         led1=tally_ledger.objects.filter(company_id=t_id)
+        vou=Voucher.objects.filter(status=0)
+        vou1=Voucher.objects.filter(company_id=t_id)
+        data=stock_itemcreation.objects.all()
         sales=voucher_sales.objects.last()
-
+       
+       
+        
         return render(request,'Vouchers_sales.html',
-        {
         
-        'vou':vou,
-        'vou1':vou1, 
-        'led':led,
+        {'led':led,
         'led1':led1,
-       'sales':sales,
+        'vou':vou,
+        'vou1':vou1,
         'tally':tally,
-        
+        'sales':sales,
+        'gd':gd,
         'data':data,
+        'stock_allo':stock_allo,
+         })
 
-        })
 
-def stock_allocat(request):
+def add_sales(request):
     if 't_id' in request.session:
         if request.session.has_key('t_id'):
             t_id = request.session['t_id']
         else:
             return redirect('/')
-        sta=stock_item_allocat.objects.all()
-        gd=CreateGodown.objects.all()
-        return render(request,'stock_item_allocation.html',
-        {
-        
-        "sta":sta,
-        'gd':gd,
-
-        })
-
-
-def add_stock_allocat(request):
+        tally = Companies.objects.filter(id=t_id)
         if request.method=='POST':
-            godow=request.POST['godown_item']
-            quantity=request.POST['Quantity']
-            rate=request.POST['Rate']
-            amount=request.POST['amount']
-            total=request.POST['total_amount']
-            godo=stock_item_allocat(
-                    godown=godow,
+            vtype=request.POST['voucher_type']
+            sal_no=request.POST['no']
+            partyaccname=request.POST['partya/c']
+            curbal=request.POST['currentbalance']
+            sal_led=request.POST['sal_led']
+            curbal1=request.POST['currentbalance1']
+            item_name=request.POST['stock_item']
+            quantity=request.POST['quantity']
+            rate=request.POST['rate']
+            amount=request.POST['value']
+            item_name1=request.POST['stock_item1']
+            quantity1=request.POST['quantity2']
+            rate1=request.POST['rate2']
+            amount1=request.POST['value2']
+            narra=request.POST['narra']
+            total_amount=request.POST['total_amount']
+            
+            sale=voucher_sales(vou_type1=vtype,
+                    sal_no=sal_no,
+                    
+                    party_AC_name=partyaccname,
+                    Cur_bal=curbal,
+                    salesledger=sal_led,
+                    Cur_bal1=curbal1,
+                    itemname=item_name,
                     quantity=quantity,
                     rate=rate,
                     amount=amount,
-                    total_amount=total,
-                            )          
-            godo.save()
-            
-        return render(request,'Vouchers_purchase.html')
+                    itemname1=item_name1,
+                    quantity1=quantity1,
+                    rate1=rate1,
+                    amount1=amount1,
+                    narration=narra,
+                    total_amount=total_amount
+                    )          
+            sale.save()
+            print("added")
+            return redirect('vouchers_sales')
+        return render(request,'Vouchers_sales.html',{'tally':tally})
+    return redirect('/')  
+
+
+
+
    

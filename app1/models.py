@@ -1,3 +1,4 @@
+from asyncio.windows_events import NULL
 from email.policy import default
 from pickle import TRUE
 from django.db import models
@@ -688,7 +689,7 @@ class group_ananysis_view(models.Model):
     ovalue=models.IntegerField(null=True)
 
 class CreateGodown(models.Model):
-    comp=models.ForeignKey(Companies,on_delete=models.CASCADE)
+    
     name=models.CharField(max_length=100)
     alias=models.CharField(max_length=100)
     under_name=models.CharField(max_length=50)
@@ -1657,17 +1658,23 @@ class cash_bank_books_TotalClosing_balance(models.Model):
 #-------------Voucher--------------------
 
 class voucher_sales(models.Model):
-    vou_type=models.CharField(max_length=225,default=False)
+    vou_type1=models.CharField(max_length=225,default=False)
     sal_no=models.AutoField(primary_key=True,default=True)
-    party_AC_name=models.ForeignKey(tally_ledger,on_delete=models.CASCADE,null=True)
+    party_AC_name=models.CharField(max_length=225,default=True)
     Cur_bal=models.IntegerField(default=True)
     salesledger=models.CharField(max_length=225)
     Cur_bal1=models.IntegerField(default=True)
-    itemname=models.ForeignKey(stock_item,on_delete=models.CASCADE,null=True)
-    quantity=models.IntegerField(default=True) 
+    itemname=models.CharField(max_length=225,default=True)
+    quantity=models.IntegerField() 
     rate=models.IntegerField()
     amount=models.IntegerField()
+    itemname1=models.CharField(max_length=225,default=True)
+    quantity1=models.IntegerField(null=True) 
+    rate1=models.IntegerField(null=True)
+    amount1=models.IntegerField(null=True)
+    narration=models.CharField(max_length=225,default=True)
     total_amount=models.IntegerField()
+
 
     
   
@@ -1686,6 +1693,10 @@ class voucher_purchase(models.Model):
     quantity=models.IntegerField() 
     rate=models.IntegerField()
     amount=models.IntegerField()
+    itemname1=models.CharField(max_length=225,default=True)
+    quantity1=models.IntegerField(null=True) 
+    rate1=models.IntegerField(null=True)
+    amount1=models.IntegerField(null=True)
     narration=models.CharField(max_length=225,default=True)
     total_amount=models.IntegerField()
 
